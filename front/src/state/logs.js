@@ -7,7 +7,7 @@ const logsSlice = createSlice({
   initialState,
   reducers: {
     newLog(state, action) {
-      state.push(action.payload);
+      state.unshift(action.payload);
     },
   },
 });
@@ -21,6 +21,7 @@ export const formatLog = (promise, dispatch) =>
       const msg = {
         status: r.status,
         url: r.config.url,
+        method: r.config.method,
       };
       dispatch(newLog(msg));
       return r.data;
@@ -29,6 +30,7 @@ export const formatLog = (promise, dispatch) =>
       const msg = {
         status: err.response.request.status,
         url: err.response.config.url,
+        method: err.response.config.method,
       };
       dispatch(newLog(msg));
       throw err;

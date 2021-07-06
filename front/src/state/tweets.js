@@ -38,8 +38,10 @@ export const updateUserTweetsRequest = createAsyncThunk(
 
 const tweetsReducer = createReducer([], {
   [getTweetsRequest.fulfilled]: (state, action) => action.payload,
-  [getSingleTweetRequest.fulfilled]: (state, action) => action.payload,
+  [getSingleTweetRequest.fulfilled]: (state, action) => [action.payload],
+  [getSingleTweetRequest.rejected]: (state, action) => [],
   [getUserTweetsRequest.fulfilled]: (state, action) => action.payload,
+  [getUserTweetsRequest.rejected]: (state, action) => [],
   [postTweetRequest.fulfilled]: (state, action) => [...state, action.payload],
   [deleteTweetRequest.fulfilled]: (state, action) =>
     state.filter((tweet) => tweet.id !== action.payload.id),

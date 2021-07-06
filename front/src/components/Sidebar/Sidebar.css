@@ -28,3 +28,9 @@
   height: 50px !important;
   margin-top: 20px !important;
 }
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+}

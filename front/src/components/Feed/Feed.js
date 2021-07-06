@@ -12,7 +12,7 @@ import TweetBox from "../TweetBox/TweetBox";
 
 const Feed = () => {
   const dispatch = useDispatch();
-  const tweets = useSelector((state) => state.tweets);
+  const tweets = [...useSelector((state) => state.tweets)];
   const location = useLocation();
 
   useEffect(() => {
@@ -49,21 +49,17 @@ const Feed = () => {
         )}
       </div>
       {location.pathname === "/home" ? <TweetBox /> : null}
-      {tweets &&
-        tweets
-          .slice(0)
-          .reverse()
-          .map((tweet, i) => (
-            <div key={i}>
-              <Post
-                id={tweet.id}
-                isVerified={tweet.isVerified}
-                name={tweet.name}
-                content={tweet.content}
-                imgURL={tweet.imgURL}
-              />
-            </div>
-          ))}
+      {tweets.reverse().map((tweet, i) => (
+        <div key={i}>
+          <Post
+            id={tweet.id}
+            isVerified={tweet.isVerified}
+            name={tweet.name}
+            content={tweet.content}
+            imgURL={tweet.imgURL}
+          />
+        </div>
+      ))}
     </div>
   );
 };

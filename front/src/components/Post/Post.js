@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   getTweetsRequest,
   getSingleTweetRequest,
@@ -18,23 +18,22 @@ import {
   VerifiedUser,
 } from "@material-ui/icons";
 
-const Post = ({ id, isVerified, name, content, imgURL }) => {
+const Post = ({ id, name, content, imgURL }) => {
   const dispatch = useDispatch();
-  const tweets = useSelector((state) => state.tweets);
   const location = useLocation();
   const history = useHistory();
 
-  const getUserTweets = () => {
+  const getUserTweets = (e) => {
     dispatch(getUserTweetsRequest(name));
   };
 
-  const getSingleTweet = () => {
+  const getSingleTweet = (e) => {
     dispatch(getSingleTweetRequest(id));
   };
 
-  const deleteTweet = () => {
+  const deleteTweet = (e) => {
     dispatch(deleteTweetRequest(id));
-    if (location.pathname !== "/home" && tweets.length === 1) {
+    if (location.pathname !== "/home") {
       history.push("/home");
       dispatch(getTweetsRequest());
     }

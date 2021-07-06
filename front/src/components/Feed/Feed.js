@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ArrowBack } from "@material-ui/icons";
+import { VerifiedUser } from "@material-ui/icons";
+import { Tooltip } from "@material-ui/core";
+
 import { getTweetsRequest } from "../../state/tweets";
 import "./Feed.css";
 import Post from "../Post/Post";
 import TweetBox from "../TweetBox/TweetBox";
-import { ArrowBack } from "@material-ui/icons";
-import { VerifiedUser } from "@material-ui/icons";
-import { Tooltip } from "@material-ui/core";
-import { useLocation, Link } from "react-router-dom";
 
 const Feed = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Feed = () => {
 
   useEffect(() => {
     dispatch(getTweetsRequest());
-  }, []);
+  }, [dispatch]);
 
   const getTweets = () => {
     dispatch(getTweetsRequest());

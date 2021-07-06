@@ -25,17 +25,6 @@ export const deleteTweetRequest = createAsyncThunk(
   (id, thunk) => formatLog(axios.delete(`/api/tweets/${id}`), thunk.dispatch)
 );
 
-export const updateUserTweetsRequest = createAsyncThunk(
-  "UPDATE_USER_TWEETS",
-  (args, thunk) =>
-    formatLog(
-      axios.put(`/api/users/${args.name}`, {
-        isVerified: args.isVerified,
-      }),
-      thunk.dispatch
-    )
-);
-
 const tweetsReducer = createReducer([], {
   [getTweetsRequest.fulfilled]: (state, action) => action.payload,
   [getSingleTweetRequest.fulfilled]: (state, action) => [action.payload],
@@ -45,7 +34,6 @@ const tweetsReducer = createReducer([], {
   [postTweetRequest.fulfilled]: (state, action) => [...state, action.payload],
   [deleteTweetRequest.fulfilled]: (state, action) =>
     state.filter((tweet) => tweet.id !== action.payload.id),
-  [updateUserTweetsRequest.fulfilled]: (state, action) => [...state],
 });
 
 export default tweetsReducer;

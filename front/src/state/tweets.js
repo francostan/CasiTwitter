@@ -12,7 +12,7 @@ export const getSingleTweetRequest = createAsyncThunk("TWEET", (id, thunk) =>
 
 export const getUserTweetsRequest = createAsyncThunk(
   "USER_TWEETS",
-  (name, thunk) => formatLog(axios.get(`/api/users/${name}`, thunk.dispatch))
+  (name, thunk) => formatLog(axios.get(`/api/users/${name}`), thunk.dispatch)
 );
 
 export const postTweetRequest = createAsyncThunk(
@@ -28,9 +28,12 @@ export const deleteTweetRequest = createAsyncThunk(
 const tweetsReducer = createReducer([], {
   [getTweetsRequest.fulfilled]: (state, action) => action.payload,
   [getSingleTweetRequest.fulfilled]: (state, action) => [action.payload],
+  [getSingleTweetRequest.rejected]: (state, action) => [],
   [getUserTweetsRequest.fulfilled]: (state, action) => action.payload,
+  [getUserTweetsRequest.rejected]: (state, action) => [],
   [postTweetRequest.fulfilled]: (state, action) => [...state, action.payload],
-  [deleteTweetRequest.fulfilled]: (state, action) => state.filter(tweet => tweet.id !== action.payload.id),
+  [deleteTweetRequest.fulfilled]: (state, action) =>
+    state.filter((tweet) => tweet.id !== action.payload.id),
 });
 
 export default tweetsReducer;

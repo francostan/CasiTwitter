@@ -12,7 +12,7 @@ export const getSingleTweetRequest = createAsyncThunk("TWEET", (id, thunk) =>
 
 export const getUserTweetsRequest = createAsyncThunk(
   "USER_TWEETS",
-  (name, thunk) => formatLog(axios.get(`/api/users/${name}`, thunk.dispatch))
+  (name, thunk) => formatLog(axios.get(`/api/users/${name}`), thunk.dispatch)
 );
 
 export const postTweetRequest = createAsyncThunk(

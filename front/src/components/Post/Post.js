@@ -1,10 +1,22 @@
 import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getTweetsRequest, getSingleTweetRequest, getUserTweetsRequest, deleteTweetRequest, updateUserTweetsRequest } from "../../state/tweets";
+import {
+  getTweetsRequest,
+  getSingleTweetRequest,
+  getUserTweetsRequest,
+  deleteTweetRequest,
+} from "../../state/tweets";
 import "./Post.css";
 import { Avatar, Tooltip } from "@material-ui/core";
-import { ChatBubbleOutlined, Delete, FavoriteBorder, Publish, Repeat, VerifiedUser } from "@material-ui/icons";
+import {
+  ChatBubbleOutlined,
+  Delete,
+  FavoriteBorder,
+  Publish,
+  Repeat,
+  VerifiedUser,
+} from "@material-ui/icons";
 
 const Post = ({ id, isVerified, name, content, imgURL }) => {
   const dispatch = useDispatch();
@@ -21,16 +33,12 @@ const Post = ({ id, isVerified, name, content, imgURL }) => {
   };
 
   const deleteTweet = () => {
-    dispatch(deleteTweetRequest(id))
-    if(location.pathname !== "/home" && tweets.length === 1) {
+    dispatch(deleteTweetRequest(id));
+    if (location.pathname !== "/home" && tweets.length === 1) {
       history.push("/home");
-      dispatch(getTweetsRequest())
+      dispatch(getTweetsRequest());
     }
-  }
-
-  const updateUser = (e) => {
-    dispatch(updateUserTweetsRequest({ name, isVerified: e.target.checked }));
-  }
+  };
 
   return (
     <div className="post">
@@ -42,30 +50,25 @@ const Post = ({ id, isVerified, name, content, imgURL }) => {
           <div>
             <div className="post__headerName">
               <h3 onClick={getUserTweets}>
-                <Link to={`/users/${name}`} className="post__text" >
-                {name}
+                <Link to={`/users/${name}`} className="post__text">
+                  {name}
                 </Link>
               </h3>
               <div>
                 <VerifiedUser className="post__badge" />
-                { location.pathname.startsWith("/users") ? (
-                  <>
-                    <input type="checkbox" onChange={updateUser} />
-                    <label>{isVerified.toString() }</label>
-                </> ) : null }
               </div>
             </div>
             <div className="post__headerContent">
               <p onClick={getSingleTweet}>
-                <Link to={`/tweets/${id}`} className="post__text" >
-                {content}
+                <Link to={`/tweets/${id}`} className="post__text">
+                  {content}
                 </Link>
               </p>
             </div>
           </div>
           <div className="post__trash">
             <Tooltip title="Borrar">
-              <Delete onClick={deleteTweet}/>
+              <Delete onClick={deleteTweet} />
             </Tooltip>
           </div>
         </div>

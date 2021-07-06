@@ -1,35 +1,30 @@
 import React from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getTweetsRequest, getSingleTweetRequest, getUserTweetsRequest, deleteTweetRequest, updateUserTweetsRequest } from "../../state/tweets";
+import { useDispatch } from "react-redux";
+import { getTweetsRequest, getSingleTweetRequest, getUserTweetsRequest, deleteTweetRequest } from "../../state/tweets";
 import "./Post.css";
 import { Avatar, Tooltip } from "@material-ui/core";
 import { ChatBubbleOutlined, Delete, FavoriteBorder, Publish, Repeat, VerifiedUser } from "@material-ui/icons";
 
-const Post = ({ id, isVerified, name, content, imgURL }) => {
+const Post = ({ id, name, content, imgURL }) => {
   const dispatch = useDispatch();
-  const tweets = useSelector((state) => state.tweets);
   const location = useLocation();
   const history = useHistory();
 
-  const getUserTweets = () => {
+  const getUserTweets = (e) => {
     dispatch(getUserTweetsRequest(name));
   };
 
-  const getSingleTweet = () => {
+  const getSingleTweet = (e) => {
     dispatch(getSingleTweetRequest(id));
   };
 
-  const deleteTweet = () => {
+  const deleteTweet = (e) => {
     dispatch(deleteTweetRequest(id))
-    if(location.pathname !== "/home" && tweets.length === 1) {
+    if(location.pathname !== "/home") {
       history.push("/home");
       dispatch(getTweetsRequest())
     }
-  }
-
-  const updateUser = (e) => {
-    dispatch(updateUserTweetsRequest({ name, isVerified: e.target.checked }));
   }
 
   return (
@@ -48,11 +43,6 @@ const Post = ({ id, isVerified, name, content, imgURL }) => {
               </h3>
               <div>
                 <VerifiedUser className="post__badge" />
-                { location.pathname.startsWith("/users") ? (
-                  <>
-                    <input type="checkbox" onChange={updateUser} />
-                    <label>{isVerified.toString() }</label>
-                </> ) : null }
               </div>
             </div>
             <div className="post__headerContent">

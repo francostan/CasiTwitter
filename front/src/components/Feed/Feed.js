@@ -49,8 +49,8 @@ const Feed = () => {
         )}
       </div>
       {location.pathname === "/home" ? <TweetBox /> : null}
-      {tweets.reverse().map((tweet, i) => (
-        <div key={i}>
+      {tweets.reverse().map((tweet) => (
+        <div key={tweet.id}>
           <Post
             id={tweet.id}
             isVerified={tweet.isVerified}

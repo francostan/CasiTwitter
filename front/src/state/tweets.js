@@ -17,7 +17,7 @@ export const getUserTweetsRequest = createAsyncThunk(
 
 export const postTweetRequest = createAsyncThunk(
   "CREATE_TWEET",
-  (args, thunk) => formatLog(axios.post("/api/tweets/", args), thunk.dispatch)
+  (args, thunk) => formatLog(axios.post("/api/tweets", args), thunk.dispatch)
 );
 
 export const deleteTweetRequest = createAsyncThunk(

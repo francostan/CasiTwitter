@@ -1,4 +1,5 @@
 const data = [];
+let id = 0;
 
 const list = () => {
   return data;
@@ -9,7 +10,7 @@ const findOne = (id) => {
 };
 
 const add = (name, content, imgURL) => {
-  const tweet = { id: data.length, name, content, imgURL };
+  const tweet = { id: ++id, name, content, imgURL };
   data.push(tweet);
   return tweet;
 };

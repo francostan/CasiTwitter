@@ -1,12 +1,17 @@
 .tweetBox {
   padding-bottom: 16px;
   padding-right: 16px;
-  border-bottom: 10px solid var(--twitter-background);
+  border-bottom: 10px solid var(--twitter-border-box);
 }
 
 .tweetBox > form {
   display: flex;
   flex-direction: column;
+}
+
+.tweetBox input {
+  background-color: var(--twitter-background);
+  color: var(--twitter-text-color);
 }
 
 .tweetBox__user {

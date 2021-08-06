@@ -26,7 +26,12 @@ const remove = (id) => {
   });
 };
 
-module.exports = { add, list, findOne, findAllMatch, remove };
+const update = (id, newContent) => {
+  const tweet = findOne(id);
+  tweet.content = newContent;
+};
+
+module.exports = { add, list, findOne, findAllMatch, remove, update };
 
 const tweets = [
   {

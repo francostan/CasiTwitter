@@ -26,4 +26,4 @@ En este proyecto deberás centrarte en las funcionalidades del _back_ para logra
 
 ### Pledu
 
-Hacé [_click_ acá](https://pledu.plataforma5.la/modules/00ca0bae-16a5-4648-a70c-d8ca99652ca0) para acceder al módulo correspondiente en Pledu.
+Hacé [_click_ acá](https://pledu.plataforma5.la/bootcamp/07---tweety/objetivo-05bbd0a8) para acceder al módulo correspondiente en Pledu.

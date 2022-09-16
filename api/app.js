@@ -1,6 +1,10 @@
+//luego de instalar nodemon, nodemon app.js en el scritp start del package.json, generamos esta recarga constante
+//.gitignore tambien importante para no subir node_modules(archivos al pedo)
+
 const express = require('express');
 const app = express(); 
 //morgan es un middleware que nos permite ver las peticiones que se hacen al servidor
+//configuamos nuestro middleware con morgan, luego de npm install morgan en la consola
 const morgan = require('morgan'); 
 //------------------RUTAS------------------
 const fs = require('fs')
@@ -8,37 +12,15 @@ const path = require('path')
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 // para que persista el log en el archivo
 //-----------------------------------------
-//aqui ruteamos y desp consologueamos en app.listen list.list() para que nos devuelva el array de tweets
-const tweetBank = require("./tweetBank");
-app.use(express.json());
-app.use(morgan('combined', { stream: accessLogStream }))
+//PASAMOS A MODULARIZAR EL CODIGO
+//CREAMOS LA CARPETA ROUTES, Y DENTRO INDEX.JS CON EL CODIGO DE LAS RUTAS
 
 
-app.use(morgan("tiny"));
-app.get('/api/tweets', (req, res) => {
-    res.send(tweetBank.list())
-})
-app.get('/api/users/:name', (req, res) => {
-   const name = tweetBank.findAllMatch({name: req.params.name})
-    res.send(name)
-  });
+//requerimos el modulo exportado de index.js
+const routes = require('./routes/index');
 
-app.get('/api/tweets/:id', (req, res) => {
-    //habia que parsearlo number para que lo pase
-    const tw = tweetBank.findOne(Number(req.params.id));
-    res.send(tw);
-});  
-app.post('/api/tweets', (req, res) => {
-    const name = req.body.name;
-    const content = req.body.content;
-    const imgURL = req.body.imgURL;
-    const tweet = tweetBank.add(name, content, imgURL);
-    res.send(tweet);
-  });
-  app.delete('/api/tweets/:id', (req, res) => {
-    const del = tweetBank.remove(Number(req.params.id));
-    res.send(del);
-    });
+//USAMOS UN MIDDLEWARE QUE ATAJE LAS PETICIONES a API Y LAS REDIRECCIONE A routes
+app.use('/api', routes);
 
 app.listen(8080, () => {
     console.log("Server listening on port 8080");
